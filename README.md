@@ -12,6 +12,7 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
  
 ## List of Mixins
 1. Internet Explorer CSS Hacks
+  - only_edge
   - only_ie6
   - only_ie7
   - only_ie7_below
@@ -52,3 +53,9 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
   - only_opera11
 5. Other CSS Hacks
   - no_ie_safari6
+
+## What's New
+  - Added Microsoft Edge Mixin
+
+## Thanks to
+  - [marknotton](https://github.com/marknotton)
