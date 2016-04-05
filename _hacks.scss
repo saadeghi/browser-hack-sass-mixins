@@ -13,6 +13,7 @@
 
 	List of Mixins:
 
+	only_edge
 	only_ie6
 	only_ie7
 	only_ie7_below
@@ -53,9 +54,17 @@
 // ----------------------------------- */
 
 
+/* ----------------------------------- //
+//     Edge CSS Hacks
+// ----------------------------------- */
 
-
-
+@mixin only_edge($selector, $property, $value){
+  @supports (-ms-accelerator:true) {
+    #{$selector}{
+      #{$property} : $value;
+    }
+  }
+}
 
 
 /* ----------------------------------- //
