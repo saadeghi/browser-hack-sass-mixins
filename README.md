@@ -7,8 +7,19 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
 
 1. Import `_hacks.scss` file to your SCSS code : `@import "hacks";`
 2. Use the mixin you want:
-  - `@include [Mixin_Name]{ selector, property, value }`
-  - For example: `@include only_ie9_below { .my_div, background-color, red }`
+  - `@include [Mixin_Name]{ selector, (property: value) }`
+  - For example:
+```
+@include only_ie9{ .my_element, (color: red)}
+```
+Or:
+```
+@include only_ff28_above{ .my_element, (
+  background-color: green;
+  display: flex;
+  margin: 2em;
+)}
+```
  
 ## List of Mixins
 1. Internet Explorer CSS Hacks
@@ -55,7 +66,9 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
   - no_ie_safari6
 
 ## What's New
-  - Added Microsoft Edge Mixin
+  - Added Microsoft Edge mixin
+  - More styles on each mixin
 
 ## Thanks to
   - [marknotton](https://github.com/marknotton)
+  - [1forh](https://github.com/1forh)

@@ -4,10 +4,17 @@
 // ----------------------------------- //
 
 	How to use:
-	@include [Mixin_Name]{ selector, property, value }
+
+	@include [Mixin_Name]{ selector, (property: value) }
 
 	Example:
-	@include only_ie9{ .my_element, background-color, red }
+
+	@include only_ie9{ .my_element, (color: red)}
+	@include only_ff28_above{ .my_element, (
+		background-color: green;
+		display: flex;
+		margin: 2em;
+	)}
 
 // ----------------------------------- //
 
@@ -58,12 +65,14 @@
 //     Edge CSS Hacks
 // ----------------------------------- */
 
-@mixin only_edge($selector, $property, $value){
-  @supports (-ms-accelerator:true) {
-    #{$selector}{
-      #{$property} : $value;
-    }
-  }
+@mixin only_edge($selector, $map){
+	@supports (-ms-accelerator:true) {
+		#{$selector}{
+			@each $property, $value in ($map) {
+				#{$property} : $value;
+			}
+		}
+	}
 }
 
 
@@ -72,98 +81,124 @@
 // ----------------------------------- */
 
 /*--- Only IE ≤ 6 ---*/
-@mixin only_ie6($selector, $property, $value){
+@mixin only_ie6($selector, $map){
 	#{$selector}{
-		#{'* html '}+#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{'* html '}+#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE7 ---*/
-@mixin only_ie7($selector, $property, $value){
+@mixin only_ie7($selector, $map){
 	#{$selector}{
-		#{'*+html '}+#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{'*+html '}+#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE ≤ 7 ---*/
-@mixin only_ie7_below($selector, $property, $value){
+@mixin only_ie7_below($selector, $map){
 	#{$selector}{
-		#{'*'}+#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{'*'}+#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE8 ---*/
-@mixin only_ie8($selector, $property, $value){
+@mixin only_ie8($selector, $map){
 	#{$selector}{
-		#{$property} : $value+\0#{'/'};
+		@each $property, $value in ($map) {
+			#{$property} : $value+\0#{'/'};
+		}
 	}
 }
 
 /*--- Only IE ≤ 8 ---*/
-@mixin only_ie8_below($selector, $property, $value){
+@mixin only_ie8_below($selector, $map){
 	#{$selector}{
-		#{$property}: $value+#{\9};
+		@each $property, $value in ($map) {
+			#{$property}: $value+#{\9};
+		}
 	}
 }
 
 /*--- Only IE9 ---*/
-@mixin only_ie9($selector, $property, $value){
+@mixin only_ie9($selector, $map){
 	#{$selector}{
-		#{$property}: $value+#{\9\0};
+		@each $property, $value in ($map) {
+			#{$property}: $value+#{\9\0};
+		}
 	}
 }
 
 /*--- Only IE ≤ 9 ---*/
-@mixin only_ie9_below($selector, $property, $value){
+@mixin only_ie9_below($selector, $map){
 	html[lang=\en] #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE10 ---*/
-@mixin only_ie10($selector, $property, $value){
+@mixin only_ie10($selector, $map){
 	@media all and (-ms-high-contrast:none){
 		*::-ms-backdrop, #{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only IE ≥ 10 ---*/
-@mixin only_ie10_above($selector, $property, $value){
+@mixin only_ie10_above($selector, $map){
 	_:-ms-input-placeholder, :root #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE ≤ 11 ---*/
-@mixin only_ie11($selector, $property, $value){
+@mixin only_ie11($selector, $map){
 	@media all and (-ms-high-contrast:none){
 		*::-ms-backdrop, #{$selector}{
-			#{$property}: $value+\0;
+			@each $property, $value in ($map) {
+				#{$property}: $value+\0;
+			}
 		}
 	}
 }
 
 /*--- Only IE ≥ 11 ---*/
-@mixin only_ie11_above($selector, $property, $value){
+@mixin only_ie11_above($selector, $map){
 	#{'_:-ms-fullscreen, :root '} #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Anything but IE6 ---*/
-@mixin no_ie6($selector, $property, $value){
+@mixin no_ie6($selector, $map){
 	#{'html>body '} #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only IE ≥ 9, safari4, android ≥ 2.3 ---*/
-@mixin only_ie9_saf4_above($selector, $property, $value){
+@mixin only_ie9_saf4_above($selector, $map){
 	@media screen and (min-width:0\0) {
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
@@ -175,106 +210,132 @@
 
 
 /*--- Only Firefox ---*/
-@mixin only_ff($selector, $property, $value){
+@mixin only_ff($selector, $map){
 	#{$selector} #{',  x:-moz-any-link'}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox 1.5 and Firefox 2 ---*/
-@mixin only_ff2($selector, $property, $value){
+@mixin only_ff2($selector, $map){
 	body:empty #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox ≥ 2 ---*/
-@mixin only_ff2_above($selector, $property, $value){
+@mixin only_ff2_above($selector, $map){
 	body:last-child #{$selector} #{',  x:-moz-any-link, x:default'}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox ≥ 3 ---*/
-@mixin only_ff3_above($selector, $property, $value){
+@mixin only_ff3_above($selector, $map){
 	#{$selector} #{',  x:-moz-any-link, x:default'}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox ≥ 6 ---*/
-@mixin only_ff6_above($selector, $property, $value){
+@mixin only_ff6_above($selector, $map){
 	_::-moz-progress-bar, body:last-child #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox ≥ 16 ---*/
-@mixin only_ff16_above($selector, $property, $value){
+@mixin only_ff16_above($selector, $map){
 	@supports (-moz-appearance:meterbar){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 21 ---*/
-@mixin only_ff21_above($selector, $property, $value){
+@mixin only_ff21_above($selector, $map){
 	_::-moz-range-track, body:last-child #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Firefox ≥ 24 ---*/
-@mixin only_ff24_above($selector, $property, $value){
+@mixin only_ff24_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (cursor:zoom-in){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 25 ---*/
-@mixin only_ff25_above($selector, $property, $value){
+@mixin only_ff25_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (background-attachment:local){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 26 ---*/
-@mixin only_ff26_above($selector, $property, $value){
+@mixin only_ff26_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (image-orientation:90deg){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 27 ---*/
-@mixin only_ff27_above($selector, $property, $value){
+@mixin only_ff27_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (all:initial){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 28 ---*/
-@mixin only_ff28_above($selector, $property, $value){
+@mixin only_ff28_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (list-style-type:japanese-formal){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 30 ---*/
-@mixin only_ff30_above($selector, $property, $value){
+@mixin only_ff30_above($selector, $map){
 	@supports (-moz-appearance:meterbar) and (background-blend-mode:difference,normal){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
@@ -287,60 +348,74 @@
 
 
 /*--- Only Webkit (Chrome, Safari, Opera ≥ 14) ---*/
-@mixin only_webkit($selector, $property, $value){
+@mixin only_webkit($selector, $map){
 	.selector:not(*:root) {
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Chrome 28+, Opera ≥ 14 ---*/
-@mixin only_chrome($selector, $property, $value){
+@mixin only_chrome($selector, $map){
 	@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Safari ≥ 6.1 ---*/
-@mixin only_safari($selector, $property, $value){
+@mixin only_safari($selector, $map){
 	@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Safari ≥ 9 ---*/
-@mixin only_safari9($selector, $property, $value){
+@mixin only_safari9($selector, $map){
 	@supports (overflow:-webkit-marquee) and (justify-content:inherit){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only iOS Safari ≥ 9 ---*/
-@mixin only_ios($selector, $property, $value){
+@mixin only_ios($selector, $map){
 	@supports (-webkit-text-size-adjust:none) and (not (-ms-accelerator:true)) and (not (-moz-appearance:none)){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 /*--- Only Safari ≥ 9 (Non iOS) ---*/
-@mixin only_safari_no_ios($selector, $property, $value){
+@mixin only_safari_no_ios($selector, $map){
 	_:-webkit-full-screen:not(:root:root),#{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Opera ≤ 9.27, Safari ≤ 2 ---*/
-@mixin only_opera9_safari2($selector, $property, $value){ //
+@mixin only_opera9_safari2($selector, $map){ //
 	#{'html:first-child '} #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
@@ -352,17 +427,21 @@
 
 
 /*--- Only Opera ≥ 9.5 ---*/
-@mixin only_opera($selector, $property, $value){ //
+@mixin only_opera($selector, $map){ //
 	_:-o-prefocus, body:last-child #{$selector}{
-		#{$property}: $value;
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
 	}
 }
 
 /*--- Only Opera ≤ 11 ---*/
-@mixin only_opera11($selector, $property, $value){ //
+@mixin only_opera11($selector, $map){ //
 	@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0){
 		#{$selector}{
-			#{$property}: $value;
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
@@ -373,16 +452,17 @@
 // ----------------------------------- */
 
 /*--- Everything but IE and Safari ≤ 6 ---*/
-@mixin no_ie_safari6($selector, $property, $value){ //
+@mixin no_ie_safari6($selector, $map){ //
 	@media screen {
 		@media (min-width: 0px) {
 			#{$selector}{
-				#{$property}: $value;
+				@each $property, $value in ($map) {
+					#{$property}: $value;
+				}
 			}
 		}
 	}
 }
-
 
 
 
