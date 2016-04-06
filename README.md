@@ -15,9 +15,9 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
 Or:
 ```
 @include only_ff28_above{ .my_element, (
-  background-color: green;
-  display: flex;
-  margin: 2em;
+  background-color: green,
+  display: flex,
+  margin: 2em,
 )}
 ```
  

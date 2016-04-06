@@ -11,9 +11,9 @@
 
 	@include only_ie9{ .my_element, (color: red)}
 	@include only_ff28_above{ .my_element, (
-		background-color: green;
-		display: flex;
-		margin: 2em;
+		background-color: green,
+		display: flex,
+		margin: 2em,
 	)}
 
 // ----------------------------------- //
