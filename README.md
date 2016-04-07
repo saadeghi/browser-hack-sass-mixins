@@ -3,6 +3,9 @@ Browser-hack sass mixins: Apply your CSS to a specific browser
 
 ![Browser Hack Mixins for Sass](https://lh3.googleusercontent.com/-lCHyETA5vtw/Vv7N8psFLDI/AAAAAAAACPg/0aPgHIty5YQ9Tp-eubIPgox5oBcWTJJNgCCo/s1024-Ic42/browser-logos.png)
 
+## Requirements
+  - Sass 3.3+
+
 ## How To Use
 
 1. Import `_hacks.scss` file to your SCSS code : `@import "hacks";`
@@ -68,6 +71,7 @@ Or:
 ## What's New
   - Added Microsoft Edge mixin
   - More styles on each mixin
+  - Fixed 'only_safari' mixin
 
 ## Thanks to
   - [marknotton](https://github.com/marknotton)

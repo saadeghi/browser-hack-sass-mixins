@@ -11,9 +11,9 @@
 
 	@include only_ie9{ .my_element, (color: red)}
 	@include only_ff28_above{ .my_element, (
-		background-color: green,
-		display: flex,
-		margin: 2em,
+		background-color: green;
+		display: flex;
+		margin: 2em;
 	)}
 
 // ----------------------------------- //
@@ -370,12 +370,17 @@
 }
 
 /*--- Only Safari ≥ 6.1 ---*/
+// Dark magic, Don't touch
+@function sf_func1($selector, $property) {
+	@return '@media screen and(min-color-index:0)and(-webkit-min-device-pixel-ratio:0){@media{'+& $selector+'{'+$property;
+}
+@function sf_func2($value) {
+	@return $value+'}}';
+}
 @mixin only_safari($selector, $map){
-	@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0){
-		#{$selector}{
-			@each $property, $value in ($map) {
-				#{$property}: $value;
-			}
+	@at-root{
+		@each $property, $value in ($map) {
+			#{sf_func1($selector, $property)}: #{sf_func2($value)};
 		}
 	}
 }
@@ -411,7 +416,7 @@
 }
 
 /*--- Only Opera ≤ 9.27, Safari ≤ 2 ---*/
-@mixin only_opera9_safari2($selector, $map){ //
+@mixin only_opera9_safari2($selector, $map){
 	#{'html:first-child '} #{$selector}{
 		@each $property, $value in ($map) {
 			#{$property}: $value;
@@ -427,7 +432,7 @@
 
 
 /*--- Only Opera ≥ 9.5 ---*/
-@mixin only_opera($selector, $map){ //
+@mixin only_opera($selector, $map){
 	_:-o-prefocus, body:last-child #{$selector}{
 		@each $property, $value in ($map) {
 			#{$property}: $value;
@@ -436,7 +441,7 @@
 }
 
 /*--- Only Opera ≤ 11 ---*/
-@mixin only_opera11($selector, $map){ //
+@mixin only_opera11($selector, $map){
 	@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0){
 		#{$selector}{
 			@each $property, $value in ($map) {
@@ -452,7 +457,7 @@
 // ----------------------------------- */
 
 /*--- Everything but IE and Safari ≤ 6 ---*/
-@mixin no_ie_safari6($selector, $map){ //
+@mixin no_ie_safari6($selector, $map){
 	@media screen {
 		@media (min-width: 0px) {
 			#{$selector}{
