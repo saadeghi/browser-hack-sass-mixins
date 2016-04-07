@@ -16,24 +16,13 @@
 		margin: 2em,
 	)}
 
+	Tips:
+	  - Use firefox mixins before IE mixins. Sometimes Firefox wants to precess the IE css but it can't and skips it's own CSS!
+
 // ----------------------------------- //
 
 	List of Mixins:
 
-	only_edge
-	only_ie6
-	only_ie7
-	only_ie7_below
-	only_ie8
-	only_ie8_below
-	only_ie9
-	only_ie9_below
-	only_ie10
-	only_ie10_above
-	only_ie11
-	only_ie11_above
-	no_ie6
-	only_ie9_saf4_above
 	only_ff
 	only_ff2
 	only_ff2_above
@@ -56,152 +45,23 @@
 	only_opera9_safari2
 	only_opera
 	only_opera11
+	only_edge
+	only_ie6
+	only_ie7
+	only_ie7_below
+	only_ie8
+	only_ie8_below
+	only_ie9
+	only_ie9_below
+	only_ie10
+	only_ie10_above
+	only_ie11
+	only_ie11_above
+	no_ie6
+	only_ie9_saf4_above
 	no_ie_safari6
 
 // ----------------------------------- */
-
-
-/* ----------------------------------- //
-//     Edge CSS Hacks
-// ----------------------------------- */
-
-@mixin only_edge($selector, $map){
-	@supports (-ms-accelerator:true) {
-		#{$selector}{
-			@each $property, $value in ($map) {
-				#{$property} : $value;
-			}
-		}
-	}
-}
-
-
-/* ----------------------------------- //
-//     Internet Explorer CSS Hacks
-// ----------------------------------- */
-
-/*--- Only IE ≤ 6 ---*/
-@mixin only_ie6($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{'* html '}+#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE7 ---*/
-@mixin only_ie7($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{'*+html '}+#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE ≤ 7 ---*/
-@mixin only_ie7_below($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{'*'}+#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE8 ---*/
-@mixin only_ie8($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{$property} : $value+\0#{'/'};
-		}
-	}
-}
-
-/*--- Only IE ≤ 8 ---*/
-@mixin only_ie8_below($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value+#{\9};
-		}
-	}
-}
-
-/*--- Only IE9 ---*/
-@mixin only_ie9($selector, $map){
-	#{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value+#{\9\0};
-		}
-	}
-}
-
-/*--- Only IE ≤ 9 ---*/
-@mixin only_ie9_below($selector, $map){
-	html[lang=\en] #{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE10 ---*/
-@mixin only_ie10($selector, $map){
-	@media all and (-ms-high-contrast:none){
-		*::-ms-backdrop, #{$selector}{
-			@each $property, $value in ($map) {
-				#{$property}: $value;
-			}
-		}
-	}
-}
-
-/*--- Only IE ≥ 10 ---*/
-@mixin only_ie10_above($selector, $map){
-	_:-ms-input-placeholder, :root #{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE ≤ 11 ---*/
-@mixin only_ie11($selector, $map){
-	@media all and (-ms-high-contrast:none){
-		*::-ms-backdrop, #{$selector}{
-			@each $property, $value in ($map) {
-				#{$property}: $value+\0;
-			}
-		}
-	}
-}
-
-/*--- Only IE ≥ 11 ---*/
-@mixin only_ie11_above($selector, $map){
-	#{'_:-ms-fullscreen, :root '} #{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
-		}
-	}
-}
-
-/*--- Anything but IE6 ---*/
-@mixin no_ie6($selector, $map){
-	#{'html>body '} #{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
-		}
-	}
-}
-
-/*--- Only IE ≥ 9, safari4, android ≥ 2.3 ---*/
-@mixin only_ie9_saf4_above($selector, $map){
-	@media screen and (min-width:0\0) {
-		#{$selector}{
-			@each $property, $value in ($map) {
-				#{$property}: $value;
-			}
-		}
-	}
-}
 
 
 /* ----------------------------------- //
@@ -211,9 +71,11 @@
 
 /*--- Only Firefox ---*/
 @mixin only_ff($selector, $map){
-	#{$selector} #{',  x:-moz-any-link'}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
+	@-moz-document url-prefix() {
+		#{$selector}{
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
@@ -229,18 +91,22 @@
 
 /*--- Only Firefox ≥ 2 ---*/
 @mixin only_ff2_above($selector, $map){
-	body:last-child #{$selector} #{',  x:-moz-any-link, x:default'}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
+	@at-root{
+		body:last-child & #{$selector} , x:-moz-any-link, x:default{
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
 
 /*--- Only Firefox ≥ 3 ---*/
 @mixin only_ff3_above($selector, $map){
-	#{$selector} #{',  x:-moz-any-link, x:default'}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
+	@at-root{
+		& #{$selector} , x:-moz-any-link, x:default{
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
 		}
 	}
 }
@@ -451,6 +317,146 @@
 	}
 }
 
+/* ----------------------------------- //
+//     Edge CSS Hacks
+// ----------------------------------- */
+
+@mixin only_edge($selector, $map){
+	@supports (-ms-accelerator:true) {
+		#{$selector}{
+			@each $property, $value in ($map) {
+				#{$property} : $value;
+			}
+		}
+	}
+}
+
+/* ----------------------------------- //
+//     Internet Explorer CSS Hacks
+// ----------------------------------- */
+
+/*--- Only IE ≤ 6 ---*/
+@mixin only_ie6($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{'* html '}+#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE7 ---*/
+@mixin only_ie7($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{'*+html '}+#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE ≤ 7 ---*/
+@mixin only_ie7_below($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{'*'}+#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE8 ---*/
+@mixin only_ie8($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{$property} : $value+\0#{'/'};
+		}
+	}
+}
+
+/*--- Only IE ≤ 8 ---*/
+@mixin only_ie8_below($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value+#{\9};
+		}
+	}
+}
+
+/*--- Only IE9 ---*/
+@mixin only_ie9($selector, $map){
+	#{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value+#{\9\0};
+		}
+	}
+}
+
+/*--- Only IE ≤ 9 ---*/
+@mixin only_ie9_below($selector, $map){
+	html[lang=\en] #{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE10 ---*/
+@mixin only_ie10($selector, $map){
+	@media all and (-ms-high-contrast:none){
+		*::-ms-backdrop, #{$selector}{
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+/*--- Only IE ≥ 10 ---*/
+@mixin only_ie10_above($selector, $map){
+	_:-ms-input-placeholder, :root #{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE ≤ 11 ---*/
+@mixin only_ie11($selector, $map){
+	@media all and (-ms-high-contrast:none){
+		*::-ms-backdrop, #{$selector}{
+			@each $property, $value in ($map) {
+				#{$property}: $value+\0;
+			}
+		}
+	}
+}
+
+/*--- Only IE ≥ 11 ---*/
+@mixin only_ie11_above($selector, $map){
+	#{'_:-ms-fullscreen, :root '} #{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
+	}
+}
+
+/*--- Anything but IE6 ---*/
+@mixin no_ie6($selector, $map){
+	#{'html>body '} #{$selector}{
+		@each $property, $value in ($map) {
+			#{$property}: $value;
+		}
+	}
+}
+
+/*--- Only IE ≥ 9, safari4, android ≥ 2.3 ---*/
+@mixin only_ie9_saf4_above($selector, $map){
+	@media screen and (min-width:0\0) {
+		#{$selector}{
+			@each $property, $value in ($map) {
+				#{$property}: $value;
+			}
+		}
+	}
+}
 
 /* ----------------------------------- //
 //           Other CSS Hacks
