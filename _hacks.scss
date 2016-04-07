@@ -375,7 +375,7 @@
 	@return '@media screen and(min-color-index:0)and(-webkit-min-device-pixel-ratio:0){@media{'+& $selector+'{'+$property;
 }
 @function sf_func2($value) {
-	@return $value+'}}';
+	@return $value+'}}}';
 }
 @mixin only_safari($selector, $map){
 	@at-root{
