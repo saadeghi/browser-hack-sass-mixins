@@ -1,5 +1,6 @@
 # Browser Hack Mixins for Sass
-Browser-hack sass mixins: Apply your CSS to a specific browser
+###Apply your CSS to a specific browser
+
 
 ![Browser Hack Mixins for Sass](https://lh3.googleusercontent.com/-lCHyETA5vtw/Vv7N8psFLDI/AAAAAAAACPg/0aPgHIty5YQ9Tp-eubIPgox5oBcWTJJNgCCo/s1024-Ic42/browser-logos.png)
 
