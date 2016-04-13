@@ -60,7 +60,6 @@ Or:
   - only_ie8_below
   - only_ie9
   - only_ie9_below
-  - only_ie10
   - only_ie10_above
   - only_ie11
   - only_ie11_above

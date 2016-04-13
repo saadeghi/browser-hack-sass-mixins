@@ -53,7 +53,6 @@
 	only_ie8_below
 	only_ie9
 	only_ie9_below
-	only_ie10
 	only_ie10_above
 	only_ie11
 	only_ie11_above
@@ -399,21 +398,12 @@
 }
 
 /*--- Only IE10 ---*/
-@mixin only_ie10($selector, $map){
+@mixin only_ie10_above($selector, $map){
 	@media all and (-ms-high-contrast:none){
 		*::-ms-backdrop, #{$selector}{
 			@each $property, $value in ($map) {
 				#{$property}: $value;
 			}
-		}
-	}
-}
-
-/*--- Only IE ≥ 10 ---*/
-@mixin only_ie10_above($selector, $map){
-	_:-ms-input-placeholder, :root #{$selector}{
-		@each $property, $value in ($map) {
-			#{$property}: $value;
 		}
 	}
 }
