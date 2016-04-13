@@ -5,16 +5,16 @@
 
 	How to use:
 
-	@include [Mixin_Name]{ selector, (property: value) }
+	@include [Mixin_Name]( 'selector', (property: value) )
 
 	Example:
 
-	@include only_ie9{ .my_element, (color: red)}
-	@include only_ff28_above{ .my_element, (
+	@include only_ie9( '.my_element', (color: red))
+	@include only_ff28_above( '.my_element', (
 		background-color: green,
 		display: flex,
 		margin: 2em,
-	)}
+	))
 
 	Tips:
 	  - Use firefox mixins before IE mixins. Sometimes Firefox wants to precess the IE css but it can't and skips it's own CSS!

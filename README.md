@@ -11,18 +11,18 @@
 
 1. Import `_hacks.scss` file to your SCSS code : `@import "hacks";`
 2. Use the mixin you want:
-  - `@include [Mixin_Name]{ selector, (property: value) }`
+  - `@include [Mixin_Name]( 'selector', (property: value) )`
   - For example:
 ```
-@include only_ie9{ .my_element, (color: red)}
+@include only_ie9( '.my_element', (color: red))
 ```
 Or:
 ```
-@include only_ff28_above{ .my_element, (
+@include only_ff28_above( '.my_element', (
   background-color: green,
   display: flex,
   margin: 2em,
-)}
+))
 ```
  
 ## List of Mixins
