@@ -1,5 +1,5 @@
 # Browser Hack Mixins for Sass
-###Apply your CSS to a specific browser
+### Apply your CSS to a specific browser
 
 
 ![Browser Hack Mixins for Sass](https://lh3.googleusercontent.com/-lCHyETA5vtw/Vv7N8psFLDI/AAAAAAAACPg/0aPgHIty5YQ9Tp-eubIPgox5oBcWTJJNgCCo/s1024-Ic42/browser-logos.png)
@@ -68,7 +68,7 @@ Or:
 5. Other CSS Hacks
   - no_ie_safari6
 
-##Tips
+## Tips
   - Use firefox mixins before IE mixins. Sometimes Firefox wants to precess the IE css but it can't and skips it's own CSS!
 
 ## What's New
