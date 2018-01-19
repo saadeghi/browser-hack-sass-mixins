@@ -389,7 +389,7 @@
 @mixin only_ie9($selector, $map){
 	#{$selector} {
 		@each $property, $value in ($map) {
-			#{$property}: $value+#{\9\0};
+			#{$property}: $value#{\0/IE9};
 		}
 	}
 }
