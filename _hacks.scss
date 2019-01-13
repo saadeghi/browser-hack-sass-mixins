@@ -319,7 +319,7 @@
 // ----------------------------------- */
 
 @mixin only_edge($selector, $map){
-	@supports (-ms-accelerator:true) {
+	@supports (-ms-ime-align: auto) {
 		#{$selector} {
 			@each $property, $value in ($map) {
 				#{$property}: $value;
