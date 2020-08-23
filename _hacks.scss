@@ -234,20 +234,17 @@
 	}
 }
 
-/*--- Only Safari ≥ 6.1 ---*/
-// Dark magic, Don't touch
-@function sf_func1($selector, $property) {
-	@return '@media screen and(min-color-index:0)and(-webkit-min-device-pixel-ratio:0){@media{'+& $selector+'{'+$property;
-}
-@function sf_func2($value) {
-	@return $value+'}}}';
-}
-@mixin only_safari($selector, $map){
-	@at-root{
-		@each $property, $value in ($map) {
-			#{sf_func1($selector, $property)}: #{sf_func2($value)};
-		}
-	}
+/*--- Only Safari ---*/
+@mixin only_safari($selector, $map) {
+  @media not all and (min-resolution:.001dpcm){
+    @supports (-webkit-appearance:none) {
+      #{$selector} {
+        @each $property, $value in ($map) {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
 }
 
 /*--- Only Safari ≥ 9 ---*/
@@ -321,7 +318,7 @@
 // ----------------------------------- */
 
 @mixin only_edge($selector, $map){
-	@supports (-ms-accelerator:true) {
+	@supports (-ms-ime-align: auto) {
 		#{$selector} {
 			@each $property, $value in ($map) {
 				#{$property}: $value;
