@@ -1,8 +1,9 @@
 # Browser Hack Mixins for Sass
 ### Apply your CSS to a specific browser
 
+[![deprecated](http://badges.github.io/stability-badges/dist/deprecated.svg)](http://github.com/badges/stability-badges)
 
-![Browser Hack Mixins for Sass](https://lh3.googleusercontent.com/-lCHyETA5vtw/Vv7N8psFLDI/AAAAAAAACPg/0aPgHIty5YQ9Tp-eubIPgox5oBcWTJJNgCCo/s1024-Ic42/browser-logos.png)
+
 
 ## Requirements
   - Sass 3.3+
@@ -67,19 +68,3 @@ Or:
   - only_ie9_saf4_above
 5. Other CSS Hacks
   - no_ie_safari6
-
-## Tips
-  - Use firefox mixins before IE mixins. Sometimes Firefox wants to precess the IE css but it can't and skips it's own CSS!
-
-## What's New
-  - Added Microsoft Edge mixin
-  - More styles on each mixin
-  - Fixed 'only_safari' mixin
-  - Fixed firefox mixins
-
-## Thanks to
-  - [marknotton](https://github.com/marknotton)
-  - [1forh](https://github.com/1forh)
-
-## Share this!
-[![share](https://static.addtoany.com/images/blog/tweet-button-2015.png)](https://twitter.com/intent/tweet?text=Browser-Hack Mixins for Sass%20-%20https://github.com/saadeghi/browser-hack-sass-mixins/)
